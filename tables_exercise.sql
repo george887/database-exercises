@@ -1,11 +1,10 @@
-# Database 
-USE `employees`;
-# Showing tables in database
-SHOW TABLES;
-# Showing employees table
-#5 employees table shows employee #, DOB, First Name, Last Name, gender and hire date
-#6 Employee #
-#7 First Name, Last Name
-#8 DOB, Hire Date
-#9 Department # and department name
-SHOW `dept_manager`;
+USE employees;
+SHOW tables;
+DESCRIBE departments;
+DESCRIBE dept_emp;
+DESCRIBE salaries;
+DESCRIBE departments;
+DESCRIBE titles;
+#8 titles, salaries, employees, dep_emp
+#9 No direct relationship but dept_emp shows employee # and dept# that is relating the two
+SHOW CREATE TABLE dept_manager;
