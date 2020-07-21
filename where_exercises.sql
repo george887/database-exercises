@@ -60,3 +60,9 @@ select last_name
 from employees
 where last_name like "%q%"
 and last_name not like "%qu%";
+
+-- Find employees who were hired on holloween and born in october
+select *
+from employees
+where hire_date like "%-10-31"
+and birth_date like "%-10-%";
