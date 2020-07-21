@@ -79,6 +79,11 @@ select first_name, last_name
  order by birth_date asc, hire_date desc
  limit 5 offset 45;
  
+ -- limit = 5, offset = 0, pg = 1
+ -- limit = 5, offset = 5 pg = 2
+ -- offset = (pg - 1)*limit
+ -- (2-1)*5 = 5
+ 
 -- LIMIT and OFFSET can be used to create multiple pages of data. What is the relationship between OFFSET (number of results to skip), LIMIT (number of results per page), and the page number?
 
--- limit, limits the number of results and offset shows the results starting where you limit ended to resume with the according page #
+-- offset = (limit * pg#) -limit
