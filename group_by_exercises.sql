@@ -5,7 +5,7 @@ select distinct title
 from titles;
 
 -- 3. Find your query for employees whose last names start and end with 'E'. Update the query find just the unique last names that start and end with 'E' using GROUP BY. The results should be:
-select distinct last_name
+select last_name
 from employees
 where last_name like "e%e"
 group by last_name;
@@ -21,8 +21,6 @@ from employees
 where last_name like '%q%'
 and last_name not like '%qu%';
 
-
-
 -- 6. Add a COUNT() to your results and use ORDER BY to make it easier to find employees whose unusual name is shared with others.
 -- Referring to 5 
 select last_name, count(last_name) as num_of_same_last_name
@@ -31,6 +29,7 @@ where last_name like '%q%'
 and last_name not like '%qu%'
 group by last_name
 order by num_of_same_last_name;
+
 -- Referring to 4
 select last_name, count(last_name)
 from employees
@@ -47,8 +46,14 @@ group by gender;
 -- 8.Recall the query the generated usernames for the employees from the last lesson. Are there any duplicate usernames? Yes there are suprisingly
 select concat(lower(SUBSTR(first_name, 1, 1)), lower(SUBSTR(last_name, 1, 4)), "_", substr(birth_date, 6, 2), substr(birth_date, 3, 2)) as usernames, count(*)
 from employees
+group by usernames;
+
+-- BONUS
+select concat(lower(SUBSTR(first_name, 1, 1)), lower(SUBSTR(last_name, 1, 4)), "_", substr(birth_date, 6, 2), substr(birth_date, 3, 2)) as usernames, count(*)
+from employees
 group by usernames
 having count(*) >1;
+
 
 
 select first_name, count(first_name) as count_of_same_names
@@ -70,6 +75,7 @@ SELECT COUNT(first_name)
 FROM employees
 WHERE first_name NOT LIKE '%a%';
 
+use employees;
 SELECT first_name, COUNT(first_name)
 FROM employees
 WHERE first_name NOT LIKE '%a%'
@@ -80,3 +86,7 @@ FROM employees
 GROUP BY hire_date
 ORDER BY COUNT(*) DESC
 LIMIT 10;
+
+SELECT
+    CAST(123 as CHAR),
+    CAST('123' as UNSIGNED);
