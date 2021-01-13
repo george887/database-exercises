@@ -102,8 +102,10 @@ from users
 left join roles on users.id = roles.id
 group by users.id;
 
-use employees;
+# Joins Exercises
 
+use employees;
+#2. Find the name of all departments currently managed by women.
 select departments.`dept_name`, CONCAT(first_name, ' ', `last_name`) as full_name
 from `employees`
 join dept_manager on dept_manager.emp_no = employees.`emp_no`
@@ -111,6 +113,7 @@ join departments on departments.`dept_no` = dept_manager.dept_no
 where dept_manager.to_date > CURDATE()
 order by dept_name;
 
+#3. Find the name of all departments currently managed by women.
 select departments.`dept_name`, CONCAT(first_name, ' ', `last_name`) as full_name
 from `employees`
 join dept_manager on dept_manager.emp_no = employees.`emp_no`
@@ -119,6 +122,7 @@ where dept_manager.to_date > CURDATE()
 and gender = 'F'
 order by dept_name;
 
+#4. Find the current titles of employees currently working in the Customer Service department.
 select t.title, d.dept_name, count(*) 
 from titles as t
 join dept_emp as de on de.emp_no = t.emp_no
@@ -126,3 +130,36 @@ join departments as d on d.dept_no = de.dept_no
 where de.dept_no = 'd009'
 and t.to_date > curdate()
 group by t.title;
+
+#5. Find the current salary of all current managers.
+select dept.dept_name, CONCAT(first_name, ' ', last_name) as full_name, s.salary
+from employees as e
+join dept_manager on dept_manager.emp_no = e.`emp_no`
+join departments as dept on dept.`dept_no` = dept_manager.dept_no
+join salaries as s on s.emp_no = dept_manager.emp_no
+where dept_manager.to_date > CURDATE()
+and s.to_date >curdate()
+order by dept.dept_name;
+
+#6. Find the number of current employees in each department.
+select d.dept_no, d.dept_name, count(*)
+from employees as e
+join dept_emp as dep on dep.emp_no = e.emp_no
+join departments as d on d.dept_no = dep.dept_no
+where dep.to_date > curdate()
+group by d.dept_no;
+
+#7. Which department has the highest average salary?
+select d.dept_name, avg(salary)
+from salaries as s
+join dept_emp as dep on dep.emp_no = s.emp_no
+join departments as d on d.dept_no = dep.dept_no
+where s.to_date>curdate()
+and dep.to_date>curdate()
+group by d.dept_name
+order by avg(salary) desc
+limit 1;
+
+
+
+
