@@ -160,6 +160,35 @@ group by d.dept_name
 order by avg(salary) desc
 limit 1;
 
+#8. Who is the highest paid employee in the Marketing department?
+select first_name, last_name
+from employees as e
+join salaries as s on s.emp_no = e.emp_no
+join dept_emp on dept_emp.emp_no = s.emp_no
+where dept_emp.to_date>curdate()
+and dept_no = 'd001'
+order by salary desc
+limit 1;
+
+#9. Which current department manager has the highest salary?
+select concat(first_name, " ", last_name) as full_name, s.salary, d.dept_name
+from employees as e
+join dept_manager as dm on dm.emp_no = e.emp_no
+join salaries as s on s.emp_no = e.emp_no
+join departments as d on d.dept_no = dm.dept_no
+where dm.to_date > curdate()
+order by salary desc
+limit 1;
+
+#10. Bonus Find the names of all current employees, their department name, and their current managers name.
+select de.emp_no, de.dept_no, concat(e.first_name, " ", e.last_name) as employee_name, d.dept_name, dm.emp_no as man_emp_num, concat(ee.first_name, " ", ee.last_name) as manager_name
+from dept_emp as de
+join employees as e on e.emp_no = de.emp_no
+join departments as d on d.dept_no = de.dept_no
+join dept_manager as dm on dm.dept_no = d.dept_no and dm.to_date > curdate()
+join employees as ee on ee.emp_no = dm.emp_no
+Where de.to_date > curdate()
+
 
 
 
