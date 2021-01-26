@@ -103,4 +103,26 @@ select first_name, last_name, a.address
 from staff
 join address as a on a.address_id = staff.address_id;
 
+# Use JOIN to display the total amount rung up by each staff member in August of 2005.
+select count(p.amount) as payment_total, p.staff_id, s.first_name, s.last_name
+from payment as p
+join staff as s on s.staff_id = p.staff_id
+where p.payment_date like "2005-08-%"
+group by s.staff_id;
+
+# List each film and the number of actors who are listed for that film.
+select title, count(actor_id) as number_of_actors
+from film as f
+join film_actor as fa on fa.film_id = f.film_id
+group by title
+order by number_of_actors desc;
+
+# How many copies of the film Hunchback Impossible exist in the inventory system?
+select title, count(title) as number_of_films
+from film as f
+join inventory as i on i.film_id = f.film_id
+where f.title like "Hunchback Impossible"
+group by title;
+
+
 
