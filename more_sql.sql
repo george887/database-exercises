@@ -57,3 +57,50 @@ select Name, Population
 from country 
 where Continent = 'Asia'
 order by Population;
+
+# Sakila database
+# Display the first and last names in all lowercase of all the actors.
+use sakila;
+
+select lower(first_name), lower(last_name)
+from actor;
+
+# You need to find the ID number, first name, and last name of an actor, of whom you know only the first name, "Joe." What is one query would you could use to obtain this information?
+
+select actor_id, first_name, last_name
+from actor
+where first_name like 'Joe';
+
+# Find all actors whose last name contain the letters "gen":
+select actor_id, first_name, last_name
+from actor
+where last_name like '%gen%';
+
+# Find all actors whose last names contain the letters "li". This time, order the rows by last name and first name, in that order.
+select actor_id, first_name, last_name
+from actor
+where last_name like '%li%'
+order by last_name, first_name;
+
+# Using IN, display the country_id and country columns for the following countries: Afghanistan, Bangladesh, and China:
+select country_id, country
+from country
+where country in ('Afghanistan', 'Bangladesh', 'China');
+
+# List the last names of all the actors, as well as how many actors have that last name.
+select last_name, count(last_name) as last_name_count
+from actor
+group by last_name;
+
+# List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors
+select last_name, count(last_name) as last_name_count
+from actor
+group by last_name
+having last_name_count > 1;
+
+# Use JOIN to display the first and last names, as well as the address, of each staff member.
+select first_name, last_name, a.address
+from staff
+join address as a on a.address_id = staff.address_id;
+
+
