@@ -124,5 +124,45 @@ join inventory as i on i.film_id = f.film_id
 where f.title like "Hunchback Impossible"
 group by title;
 
+# The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
+select title
+from film
+join language as l on l.language_id = film.language_id
+where title like 'K%' or title like'Q%'
+and l.language_id = 1;
 
+# You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers.
+select first_name, last_name, email, address_id
+from customer
+where address_id in (select address_id 
+from address as a
+join city on city.city_id = a.city_id
+join country as c on c.country_id = city.country_id
+where c.country = 'Canada');
 
+# Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as family films.
+select title
+from film
+where film_id in (select film_id
+from film_category as fc
+join category as c on c.category_id = fc.category_id
+where fc.category_id = 8);
+
+# Write a query to display how much business, in dollars, each store brought in.
+select sum(amount) as total_payment, s.store_id
+from payment
+join store as s on s.manager_staff_id = payment.staff_id
+group by s.store_id;
+
+# Write a query to display for each store its store ID, city, and country.
+select store_id, a.address_id, c.city, co.country
+from store
+join address as a on a.address_id = store.address_id
+join city as c on c.city_id = a.city_id
+join country as co on co.country_id = c.country_id;
+
+select store_id, city, country
+from store
+join address using(address_id)
+join city using(city_id)
+join country using(country_id);
