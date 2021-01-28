@@ -166,3 +166,25 @@ from store
 join address using(address_id)
 join city using(city_id)
 join country using(country_id);
+
+# List the top five genres in gross revenue in descending order. (Hint: you may need to use the following tables: category, film_category, inventory, payment, and rental.)
+select name, sum(amount) as gross_revenue 
+from category
+join film_category using(category_id)
+join inventory using(film_id)
+join rental using(inventory_id)
+join payment using(rental_id)
+group by name
+order by gross_revenue;
+
+# SELECT statements
+# Select all columns from the actor table.
+select * from actor;
+
+# Select only the last_name column from the actor table.
+select last_name from actor;
+
+# Select only the following columns from the film table.
+# DISTINCT operator
+# Select all distinct (different) last names from the actor table.
+select distinct last_name from actor;
