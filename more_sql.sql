@@ -188,3 +188,33 @@ select last_name from actor;
 # DISTINCT operator
 # Select all distinct (different) last names from the actor table.
 select distinct last_name from actor;
+
+# Select all distinct (different) postal codes from the address table.
+select distinct postal_code
+from address;
+
+# Select all distinct (different) ratings from the film table.
+select distinct rating
+from film;
+
+# WHERE clause
+
+# Select the title, description, rating, movie length columns from the films table that last 3 hours or longer.
+select title, description, rating, length
+from film
+where length >= 180;
+
+# Select the payment id, amount, and payment date columns from the payments table for payments made on or after 05/27/2005.
+select payment_id, amount, payment_date
+from payment
+where payment_date >= '05/27/2005';
+
+# Select the primary key, amount, and payment date columns from the payment table for payments made on 05/27/2005.
+select payment_id, amount, payment_date
+from payment
+where payment_date like '2005-05-27%';
+
+# Select all columns from the customer table for rows that have a last names beginning with S and a first names ending with N.
+select *
+from customer
+where last_name like 'S%' and first_name like '%n';
