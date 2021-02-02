@@ -218,3 +218,25 @@ where payment_date like '2005-05-27%';
 select *
 from customer
 where last_name like 'S%' and first_name like '%n';
+
+# Select all columns from the customer table for rows where the customer is inactive or has a last name beginning with "M".
+select *
+from customer
+where active = 0
+or last_name like "M%";
+
+select *
+from category
+where category_id > 4
+and name like 'c%' or name like 's%' or name like 't%';
+
+# Select all columns minus the password column from the staff table for rows that contain a password.
+select *
+from staff
+where password is not null;
+
+# Select all columns minus the password column from the staff table for rows that do not contain a password.
+select *
+from staff
+where password is null;
+
