@@ -240,3 +240,29 @@ select *
 from staff
 where password is null;
 
+# Select the phone and district columns from the address table for addresses in California, England, Taipei, or West Java.
+select phone, district
+from address
+where district in ('California', 'England', 'Taipei','West Java');
+
+# Select the payment id, amount, and payment date columns from the payment table for payments made on 05/25/2005, 05/27/2005, and 05/29/2005. (Use the IN operator and the DATE function, instead of the AND operator as in previous exercises.)
+select payment_id, amount, payment_date
+from payment
+where YEAR(payment_date) = 2005 and MONTH(payment_date) = 05 and DAY(payment_date) in (25,27,29);
+
+# Select all columns from the film table for films rated G, PG-13 or NC-17.
+select *
+from film
+where rating in ('G', 'PG-13', 'NC-17');
+
+# Select all columns from the payment table for payments made between midnight 05/25/2005 and 1 second before midnight 05/26/2005.
+select * 
+from payment
+where payment_date between '2005-05-25' and '2005-05-26 23:59:%';
+
+# Select the following columns from the film table for films where the length of the description is between 100 and 120.
+# Hint: total_rental_cost = rental_duration * rental_rate
+select *
+from film
+where length between 100 and 120;
+
