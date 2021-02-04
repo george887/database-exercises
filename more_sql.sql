@@ -266,3 +266,20 @@ select *
 from film
 where length between 100 and 120;
 
+# Finding max salary in each department
+
+use employees;
+
+select max_by_dept.dno, max_by_dept.dname, employees.first_name, employees.last_name, max_by_dept.maxsal, salaries.to_date   
+from employees
+join dept_emp on dept_emp.emp_no = employees.emp_no
+join salaries on salaries.emp_no = dept_emp.emp_no
+join (select dept_emp.dept_no as dno, departments.dept_name as dname, max(salary) as maxsal 
+ 	from salaries
+ 	join dept_emp on salaries.emp_no = dept_emp.emp_no
+ 	join departments on departments.dept_no = dept_emp.dept_no
+ 	join employees on employees.emp_no = salaries.emp_no
+	 group by dept_emp.dept_no) as max_by_dept on max_by_dept.dno = dept_emp.dept_no
+where salaries.salary = max_by_dept.maxsal
+order by max_by_dept.dno;
+
